@@ -8,7 +8,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name="scrapy-aiohttp-downloader",
-    version="1.0.0-beta.1",
+    version="1.0.0-beta.2",
     author="Jalil SA (jxlil)",
     description="Scrapy download handler that integrates aiohttp",
     license="MIT",
