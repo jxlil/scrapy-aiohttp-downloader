@@ -9,7 +9,7 @@ from scrapy.responsetypes import responsetypes
 from scrapy.spiders import Spider
 from scrapy.utils.defer import deferred_f_from_coro_f, deferred_from_coro
 from scrapy.utils.reactor import verify_installed_reactor
-from twisted.internet.defer import Deferred
+from twisted.internet.defer import Deferred, inlineCallbacks
 
 from scrapy_aiohttp_downloader.parser import RequestParser
 
@@ -62,10 +62,11 @@ class AioHTTPDownloadHandler(HTTPDownloadHandler):
             request=request,
         )
 
+    @inlineCallbacks
     def close(self):  # type: ignore
         yield self._close()
         yield super().close()
 
     @deferred_f_from_coro_f
     async def _close(self) -> None:
-        await self.client.__aexit__()  # type: ignore
+        await self.client.__aexit__(None, None, None)  # type: ignore
